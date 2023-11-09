@@ -1,0 +1,347 @@
+/* PRESETS */
+:root[data-theme="light"] {
+    --text: #010104;
+    --background: #d7ddf9;
+    --primary: #102275;
+    --secondary: #c9d1f8;
+    --accent: #1d3fd7;
+    --selected: #ffa4b4;
+}
+
+:root[data-theme="dark"] {
+    --text: #fbfbfe;
+    --background: #060c28;
+    --primary: #8a9def;
+    --secondary: #070f36;
+    --accent: #284ae2;
+    --selected: #bd1e39;
+}
+
+* {
+	color: var(--text);
+	font-family: 'Space Mono', monospace;
+	scroll-behavior: smooth;
+	scroll-padding-top: 7.5rem;
+	box-sizing: border-box;
+	transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+html,
+body {
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	background-color: var(--background);
+	position: relative;
+}
+
+main {
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+	overflow-x: hidden;
+	min-height: calc(100vh - 5rem);
+}
+
+::selection {
+	background-color: var(--accent);
+}
+
+button,
+a {
+	cursor: pointer;
+}
+
+/* HEADER */
+.betterHeader {
+	font-family: 'Mulish', sans-serif;
+}
+
+.betterHeader .headerSpaceholder {
+	height: 5rem;
+	width: 100%;
+	position: relative;
+}
+
+.betterHeader .realHeader {
+	background-color: var(--primary);
+	height: 5rem;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	flex-wrap: nowrap;
+	border-bottom: 2px solid var(--secondary);
+	z-index: 5;
+}
+
+.betterHeader .logoLink {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	margin-left: 1rem;
+	text-decoration: none;
+	left: 0;
+	padding: 0.05rem 0.5rem;
+	position: absolute;
+	z-index: 2;
+	border-radius: 10px;
+	outline: 0px solid black;
+	transition: transform 0.3s ease-in-out, outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out;
+	outline-offset: -10px;
+
+	color: var(--text);
+}
+
+.betterHeader .logoLink svg {
+	position: relative;
+	height: 2rem;
+	width: 2rem;
+	margin-right: 0.25rem;
+	transition: fill 0.3s ease-in-out;
+	fill: var(--secondary);
+}
+
+.betterHeader .logoLink h2 {
+	position: relative;
+	color: var(--secondary);
+	white-space: nowrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: max(1.2rem, 3.15vw);
+	font-family: 'Mulish', sans-serif;
+	margin: 0;
+	margin-bottom: 0.125rem;
+}
+
+.betterHeader .logoLink:hover {
+	transform: scale(1.1);
+}
+
+.betterHeader .logoLink:hover h2 {
+	color: var(--selected);
+}
+
+
+.betterHeader .logoLink:hover svg {
+	fill: var(--selected);
+}
+
+
+.betterHeader .logoLink:focus-visible {
+	outline: 2px solid var(--selected);
+	outline-offset: 5px;
+	transform: scale(1.1);
+}
+
+.betterHeader .logoLink:focus-visible h2 {
+	color: var(--selected);
+}
+
+
+.betterHeader .logoLink:focus-visible svg {
+	fill: var(--selected);
+}
+
+.betterHeader .navBar {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	margin: 0rem 1rem;
+	position: relative;
+	height: 100%;
+
+	background-color: var(--primary);
+}
+
+.betterHeader .navBar .distanceChecker {
+	position: relative;
+	height: 100%;
+	width: 2rem;
+	opacity: 0;
+}
+
+.betterHeader .navBar .spaceHolder {
+	position: relative;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+}
+
+.betterHeader .navBar .spaceHolder .openNav {
+	position: absolute;
+	width: max(1.2rem, 3.5vw);
+	height: max(1.2rem, 3.5vw);
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	border-radius: 100%;
+	outline: 0px solid black;
+	outline-offset: -10px;
+	transition: transform 0.3s ease-in-out, outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.25rem;
+}
+
+.betterHeader .navBar .spaceHolder .openNav svg {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	transition: fill 0.3s ease-in-out;
+	fill: var(--secondary);
+	outline: 0px solid black;
+	outline-offset: -10px;
+	border-radius: 100%;
+	transition: transform 0.3s ease-in-out, outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out, fill 0.3s ease-in-out;
+}
+
+.betterHeader .navBar .spaceHolder .openNav .hamburger {
+	opacity: 1;
+}
+
+.betterHeader .navBar .spaceHolder .openNav .close {
+	opacity: 0;
+}
+
+.betterHeader .navBar .spaceHolder .openNav:hover svg {
+	fill: var(--selected);
+	transform: scale(1.1);
+}
+
+.betterHeader .navBar .spaceHolder .openNav:focus-visible svg {
+	fill: var(--selected);
+	outline: 2px solid var(--selected);
+	outline-offset: 4px;
+}
+
+.betterHeader .navBar ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 0;
+	list-style: none;
+	height: 100%;
+	margin: 0;
+	position: relative;
+	background-color: var(--primary);
+	z-index: 3;
+}
+
+.betterHeader .navBar[data-expanded="true"] .spaceHolder .openNav {
+	visibility: hidden;
+}
+
+.betterHeader .navBar[data-expanded="false"] .spaceHolder .openNav {
+	visibility: visible;
+}
+
+.betterHeader .navBar[data-expanded="true"] ul {
+	position: relative;
+	opacity: 1 !important;
+}
+
+.betterHeader .navBar[data-expanded="false"] ul {
+	position: absolute;
+	top: 100%;
+}
+
+.betterHeader .navBar[data-expanded="false"] ul[data-open="false"] {
+	display: none;
+}
+
+.betterHeader .navBar ul[data-open="true"] {
+	opacity: 1;
+	right: -1rem;
+	width: 100vw;
+	flex-wrap: wrap;
+}
+
+.betterHeader .navBar ul[data-open="false"] {
+	opacity: 0;
+}
+
+.betterHeader .navBar ul {
+	position: absolute;
+}
+
+.betterHeader .navBar ul li {
+	white-space: nowrap;
+	width: max-content;
+	padding: 0rem 0.5rem;
+}
+
+.betterHeader .navBar ul li a {
+	font-family: 'Mulish', sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--secondary);
+	border-radius: 10px;
+	outline: 0px solid rgba(0, 0, 0, 0);
+	outline-offset: -10px;
+	transition: outline 0.3s ease-in-out, padding 0.3s ease-in-out, font-size 0.3s ease-in-out, font-weight 0.3s ease-in-out, outline-offset 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.betterHeader .navBar ul li a:hover {
+	color: var(--selected);
+	font-size: larger;
+	font-weight: bolder;
+}
+
+.betterHeader .navBar ul li a:focus-visible {
+	color: var(--selected);
+	font-size: larger;
+	font-weight: bolder;
+	outline: 2px solid var(--selected);
+	outline-offset: 0px;
+	padding: 0.5rem;
+}
+
+/* COLOR MODE */
+#colorMode {
+	position: fixed;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-color: var(--secondary);
+	overflow: hidden;
+	border: 2px solid var(--text);
+	border-radius: 5px;
+	bottom: 1rem;
+	left: 1rem;
+	z-index: 5;
+	outline: 0px solid black;
+	transition: transform 0.3s ease-in-out, outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out;
+	outline-offset: -10px;
+}
+
+#colorMode svg {
+	position: absolute;
+	width: 70%;
+	height: 70%;
+	left: 15%;
+	top: 15%;
+	fill: var(--text);
+	background-color: transparent;
+	transition: transform 0.3s ease-in-out;
+}
+
+:root[data-theme="light"] #colorMode #moonIcon {
+	transform: translateY(3rem);
+}
+
+:root[data-theme="dark"] #colorMode #sunIcon {
+	transform: translateY(3rem);
+}
+
+#colorMode:hover svg,
+#colorMode:focus-visible svg {
+	fill: var(--selected);
+}
+
+#colorMode:focus-visible {
+	outline: 3px solid var(--selected);
+	outline-offset: 3px;
+}
