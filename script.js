@@ -123,8 +123,15 @@ function loadLevel(level, levelNumber) {
 	clonedSVG.removeAttribute("id");
 	target.appendChild(clonedSVG);
 
-	target.addEventListener("click", function(){
-		loadLevel(levels[levelNumber + 1], levelNumber + 1);
+	target.addEventListener("click", function () {
+  const nextLevelNumber = levelNumber + 1;
+
+  if (levels[nextLevelNumber]) {
+    loadLevel(levels[nextLevelNumber], nextLevelNumber);
+  } else {
+    console.log("Done!");
+    loadLevel(levels[1], 1);
+  }
 	});
   
 	gameboard.appendChild(target);
