@@ -28,22 +28,42 @@ function changeTheme() {
 }
 
 const levels = {
-	1: {
-		palette: 1,
-		obstacleCount: 10,
-		minObstacleSize: 2,
-		maxObstacleSize: 10,
-		obstacleSpeed: 1,
-	},
-	
-	2: {
-		palette: 1,
-		obstacleCount: 15,
-		minObstacleSize: 2,
-		maxObstacleSize: 15,
-		obstacleSpeed: 2,
-	},
-}
+  1: {
+    palette: 1,
+    obstacleCount: 10,
+    minObstacleSize: 2,
+    maxObstacleSize: 10,
+    obstacleSpeed: 1,
+  },
+  2: {
+    palette: 1,
+    obstacleCount: 15,
+    minObstacleSize: 2,
+    maxObstacleSize: 15,
+    obstacleSpeed: 2,
+  },
+  3: {
+    palette: 1,
+    obstacleCount: 20,
+    minObstacleSize: 2,
+    maxObstacleSize: 20,
+    obstacleSpeed: 3,
+  },
+  4: {
+    palette: 1,
+    obstacleCount: 25,
+    minObstacleSize: 2,
+    maxObstacleSize: 25,
+    obstacleSpeed: 4,
+  },
+  5: {
+    palette: 1,
+    obstacleCount: 30,
+    minObstacleSize: 2,
+    maxObstacleSize: 30,
+    obstacleSpeed: 5,
+  },
+};
 
 function runGame() {
 	console.log("Game Running!");
