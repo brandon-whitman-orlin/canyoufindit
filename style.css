@@ -36,10 +36,13 @@ body {
 }
 
 main {
-	padding-top: 5rem;
-	padding-bottom: 5rem;
 	overflow-x: hidden;
-	min-height: calc(100vh - 5rem);
+	height: calc(100vh - 5rem);
+	width: 100vw;
+	top: 0;
+	position: relative;
+	padding: 2.5rem;
+	background-color: var(--borderColor);
 }
 
 ::selection {
@@ -72,7 +75,6 @@ a {
 	justify-content: right;
 	align-items: center;
 	flex-wrap: nowrap;
-	border-bottom: 2px solid var(--secondary);
 	z-index: 5;
 }
 
@@ -349,24 +351,83 @@ a {
 /* GAMEBOARD */
 
 .gameboard {
-	top: 5rem;
-	width: 100vw;
-	height: calc(100vh - 5rem);
+	background-color: var(--bgColor);
+	width: calc(100% - 5rem);
+	height: calc(100% - 5rem);
 	position: absolute;
 	overflow: hidden;
+	filter: blur(2px);
+	transition: filter 1s ease-in-out;
+	border: 5px solid var(--background);
+}
+
+
+main[data-palette="1"] {
+	--borderColor: var(--primary);
+	--bgColor: #f0f0f0;
+	--obstacleColor: #008000;
 }
 
 .gameboard .target {
 	width: 2rem;
 	height: 2rem;
 	position: absolute;
-	background-color: red;
+	background-size: 100%;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.gameboard .target:hover {
+	transform: scale(1.1);
+	z-index: 3;
+}
+
+.target svg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.target:hover svg {
+	filter: drop-shadow(0px 0px 10px var(--selected));
 }
 
 .gameboard .obstacle {
 	width: 2rem;
 	height: 2rem;
 	position: absolute;
-	background-color: green;
+	background-color: var(--obstacleColor);
 	z-index: 2;
+	opacity: 0.5;
+	pointer-events: none;
+	transition: all 0.3s ease-in-out;
+}
+
+/* LEVEL SCREEN */
+
+.levelScreen {
+	width: calc(100% - 5rem);
+	height: calc(100% - 5rem);
+	position: absolute;
+	z-index: 5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.levelScreen h2 {
+	font-size: 3rem;
+	color: var(--accent);
+}
+
+/* OTHER */
+
+#sealSVG {
+	display: none;
 }

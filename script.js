@@ -27,44 +27,54 @@ function changeTheme() {
 	}
 }
 
+const levels = {
+	1: {
+		palette: 1,
+		obstacleCount: 10,
+		minObstacleSize: 2,
+		maxObstacleSize: 10,
+		obstacleSpeed: 1,
+	},
+	
+	2: {
+		palette: 1,
+		obstacleCount: 15,
+		minObstacleSize: 2,
+		maxObstacleSize: 15,
+		obstacleSpeed: 2,
+	},
+}
+
 function runGame() {
 	console.log("Game Running!");
-
-	const levels = {
-		1: {
-			palette: 1,
-			obstacleCount: 10,
-			minObstacleSize: 2,
-			maxObstacleSize: 10
-		},
-		2: {
-			palette: 1,
-			obstacleCount: 20,
-			minObstacleSize: 2,
-			maxObstacleSize: 15
-		},
-	}
 
 	loadLevel(levels[1], 1);
 }
 
 function loadLevel(level, levelNumber) {
 	console.log(`Loading level ${levelNumber}`);
-	
+
+	const main = document.querySelector("main");
+	main.setAttribute("data-palette", level["palette"])
+
+
+	const levelScreen = document.getElementById("levelScreen");
+
 	const gameboard = document.getElementById("gameboard");
+	gameboard.innerHTML = '';
+
+
+	setTimeout(() => {
+		levelScreen.style.opacity = 1;
+		levelScreen.querySelector("h2").innerText= `Level ${levelNumber}`;
+		gameboard.style.filter = "blur(2px)";
+		setTimeout(() => {
+			levelScreen.style.opacity = 0;
+			gameboard.style.filter = "blur(0px)";
+		}, 1000);
+	}, 100);
+
 	
-	// Function to check if two elements overlap
-	function doElementsOverlap(element1, element2) {
-	  const rect1 = element1.getBoundingClientRect();
-	  const rect2 = element2.getBoundingClientRect();
-  
-	  return !(
-		rect1.right < rect2.left ||
-		rect1.left > rect2.right ||
-		rect1.bottom < rect2.top ||
-		rect1.top > rect2.bottom
-	  );
-	}
   
 	// Generate Obstacles
 	const obstacles = [];
@@ -75,37 +85,87 @@ function loadLevel(level, levelNumber) {
 	  obstacle.style.width = size + "rem";
 	  obstacle.style.height = size + "rem";
 	  obstacle.style.transform = `rotate(${Math.random() * (360 - 0) + 0}deg)`;
-	
-	  const maxX = window.innerWidth - size;
-	  const maxY = window.innerHeight - size;
+  
+	  const maxX = gameboard.clientWidth - size;
+	  const maxY = gameboard.clientHeight - size;
 	  const randomX = Math.random() * maxX;
 	  const randomY = Math.random() * maxY;
-	
-	  obstacle.style.position = "absolute";
+  
 	  obstacle.style.left = randomX + "px";
 	  obstacle.style.top = randomY + "px";
-	
+  
+	  obstacle.direction = Math.random() * 360;
+	  obstacle.cumulativeRotation = 0;
 	  gameboard.appendChild(obstacle);
 	  obstacles.push(obstacle);
 	}
-	
-	// Position Target
-	const targetItem = document.createElement("div");
-	targetItem.classList.add("target");
+  
+	// Generate Target
+	const target = document.createElement("div");
+	target.classList.add("target");
   
 	const targetSize = 32;
-	let randomX, randomY;
-	do {
-	  randomX = Math.random() * (window.innerWidth - targetSize);
-	  randomY = Math.random() * (window.innerHeight - targetSize);
-	} while (obstacles.some(obstacle => doElementsOverlap(targetItem, obstacle)));
-	
-	targetItem.style.position = "absolute";
-	targetItem.style.width = targetSize + "px";
-	targetItem.style.height = targetSize + "px";
-	targetItem.style.left = randomX + "px";
-	targetItem.style.top = randomY + "px";
-	
-	gameboard.appendChild(targetItem);
+	const maxX = gameboard.clientWidth - targetSize;
+	const maxY = gameboard.clientHeight - targetSize;
+  
+	const randomX = Math.random() * maxX;
+	const randomY = Math.random() * maxY;
+  
+	target.style.left = randomX + "px";
+	target.style.top = randomY + "px";
+  
+	target.direction = Math.random() * 360;
+	target.cumulativeRotation = 0;
+  
+	const sealSVG = document.getElementById("sealSVG");
+  
+	const clonedSVG = sealSVG.cloneNode(true);
+	clonedSVG.removeAttribute("id");
+	target.appendChild(clonedSVG);
+
+	target.addEventListener("click", function(){
+		loadLevel(levels[levelNumber + 1], levelNumber + 1);
+	});
+  
+	gameboard.appendChild(target);
+  
+	// Move Obstacles and Target
+	setInterval(() => {
+	  moveElementRandomly(target, maxX, maxY, false, level["obstacleSpeed"]);
+	  obstacles.forEach(obstacle => moveElementRandomly(obstacle, maxX, maxY, true, level["obstacleSpeed"]));
+	}, 100);
   }
+  
+  function moveElementRandomly(element, maxX, maxY, rotation, moveSpeed) {
+	const changeDirectionProbability = 0.02;
+	const directionChangeAmount = 30;
+  
+	if (Math.random() < changeDirectionProbability) {
+	  element.direction += Math.random() * directionChangeAmount - directionChangeAmount / 2;
+	  if (rotation) {
+		element.cumulativeRotation += Math.random() * 360;
+		element.style.transform = `rotate(${element.cumulativeRotation}deg)`;
+	  }
+	}
+  
+	const speed = moveSpeed;
+  
+	let newX = parseFloat(element.style.left) + speed * Math.cos(element.direction * (Math.PI / 180));
+	let newY = parseFloat(element.style.top) + speed * Math.sin(element.direction * (Math.PI / 180));
+  
+	if (newX < 0 || newX > maxX) {
+	  element.direction = (180 - element.direction) % 360;
+	}
+  
+	if (newY < 0 || newY > maxY) {
+	  element.direction = (-element.direction) % 360;
+	}
+  
+	newX = Math.max(0, Math.min(maxX, newX));
+	newY = Math.max(0, Math.min(maxY, newY));
+  
+	element.style.left = newX + "px";
+	element.style.top = newY + "px";
+  }
+  
   
