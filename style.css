@@ -5,7 +5,7 @@
     --primary: #102275;
     --secondary: #c9d1f8;
     --accent: #1d3fd7;
-    --selected: #ffa4b4;
+    --selected: #ca3550;
 }
 
 :root[data-theme="dark"] {
@@ -14,7 +14,7 @@
     --primary: #8a9def;
     --secondary: #070f36;
     --accent: #284ae2;
-    --selected: #bd1e39;
+    --selected: #b80b28;
 }
 
 * {
@@ -344,4 +344,29 @@ a {
 #colorMode:focus-visible {
 	outline: 3px solid var(--selected);
 	outline-offset: 3px;
+}
+
+/* GAMEBOARD */
+
+.gameboard {
+	top: 5rem;
+	width: 100vw;
+	height: calc(100vh - 5rem);
+	position: absolute;
+	overflow: hidden;
+}
+
+.gameboard .target {
+	width: 2rem;
+	height: 2rem;
+	position: absolute;
+	background-color: red;
+}
+
+.gameboard .obstacle {
+	width: 2rem;
+	height: 2rem;
+	position: absolute;
+	background-color: green;
+	z-index: 2;
 }
