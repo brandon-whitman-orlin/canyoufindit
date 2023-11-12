@@ -74,11 +74,56 @@
 				</g>
 			</svg>
 		</button>
+		<button id="soundMode">
+			<svg id="soundOff" version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+				<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
+					<path d="M2329 4631 c-47 -15 -71 -32 -600 -432 l-527 -398 -509 -3 c-502 -3 -508 -3 -549 -25 -53 -28 -96 -71 -120 -120 -18 -36 -19 -80 -22 -1078 -3 -1157 -6 -1097 65 -1170 20 -21 57 -47 82 -59 45 -20 61 -21 549 -24 l504 -3 523 -394 c288 -217 538 -404 557 -414 113 -67 276 -12 334 113 l24 51 0 1886 0 1885 -26 52 c-53 107 -178 165 -285 133z" />
+					<path d="M3347 3516 c-124 -46 -205 -190 -178 -317 6 -27 20 -66 30 -87 11 -20 135 -152 275 -292 l255 -254 -254 -257 c-214 -215 -259 -266 -282 -315 -89 -194 45 -406 257 -407 115 -1 133 12 427 306 l263 261 263 -261 c293 -293 311 -306 427 -306 113 -1 204 55 258 158 22 41 27 63 27 125 0 126 -9 138 -308 431 l-262 257 256 259 c166 166 265 274 279 303 51 102 33 234 -44 318 -58 63 -123 92 -211 92 -121 0 -143 -15 -434 -305 l-257 -255 -244 246 c-135 134 -267 259 -294 276 -42 28 -59 32 -130 35 -52 2 -94 -2 -119 -11z" />
+				</g>
+			</svg>
+			<svg id="soundOn" version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+				<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
+					<path d="M3949 4830 c-156 -26 -267 -165 -256 -320 6 -94 32 -142 136 -255 348 -376 556 -798 643 -1305 30 -171 32 -575 5 -750 -79 -501 -289 -937 -631 -1310 -125 -136 -151 -188 -151 -295 1 -96 23 -153 84 -214 115 -115 293 -126 414 -25 48 40 196 204 270 299 186 238 374 576 471 845 273 763 243 1589 -86 2325 -133 300 -343 612 -576 856 -92 98 -145 134 -207 144 -22 4 -47 8 -55 10 -8 1 -36 -1 -61 -5z" />
+					<path d="M2208 4526 c-53 -19 -42 -11 -570 -407 l-476 -358 -479 -3 c-536 -3 -513 0 -597 -78 -30 -28 -52 -60 -66 -96 -20 -54 -20 -73 -20 -1023 0 -1064 -3 -1017 61 -1094 17 -20 52 -49 77 -65 l47 -27 483 -3 484 -3 496 -371 c274 -204 515 -379 537 -389 54 -25 150 -25 208 0 47 20 109 77 135 126 16 28 17 178 20 1815 l2 1784 -25 53 c-28 56 -65 92 -128 125 -52 26 -140 33 -189 14z" />
+					<path d="M3130 4127 c-155 -44 -248 -195 -219 -354 13 -73 34 -106 132 -218 320 -364 448 -844 347 -1305 -57 -261 -164 -466 -362 -693 -37 -43 -77 -95 -88 -117 -108 -212 55 -465 288 -447 95 7 157 43 253 145 296 317 479 696 545 1136 22 147 22 442 0 586 -58 372 -185 677 -402 965 -118 157 -210 250 -279 281 -67 31 -152 39 -215 21z" />
+				</g>
+			</svg>
+		</button>
 		<main data-palette="1">
 			<div id="gameboard" class="gameboard"></div>
 			<div id="levelScreen" class="levelScreen">
-				<h2>LEVEL </h2>
+				<div class="levelMenu">
+					<h2>CONGRATULATIONS</h2>
+					<p>Level 1 Complete</p>
+					<button id="nextLevel">NEXT LEVEL</button>
+				</div>
+				<div class="clickBlocker"></div>
 			</div>
+			<div id="mainMenu" class="mainMenu">
+				<div class="mainLevelMenu">
+					<h2>SPOT THE SEAL</h2>
+					<button id="playGame">PLAY</button>
+					<button id="instructions">INSTRUCTIONS</button>
+				</div>
+				<div class="clickBlocker"></div>
+			</div>
+			<div id="instructionScreen" class="instructionScreen">
+				<div class="instructionMenu">
+					<h2>HOW TO PLAY</h2>
+					<p>Kiko the seal wants to play Hide and Seek! When the level starts, look for Kiko. When you find Kiko, click on them to advance to the next level.</p>
+					<button id="backButton">BACK</button>
+				</div>
+				<div class="clickBlocker"></div>
+			</div>
+			<div id="endScreen" class="endScreen">
+				<div class="endMenu">
+					<h2>CONGRATULATIONS</h2>
+					<p>You found Kiko the seal X times in Y! Great Job!</p>
+					<button id="playAgain">PLAY AGAIN</button>
+				</div>
+				<div class="clickBlocker"></div>
+			</div>
+			<p id="timer">00:00:00</p>
 		</main>
 	</body>
 	<svg version="1.1" id="sealSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
