@@ -357,6 +357,8 @@ function runGame() {
 		levelScreen.style.opacity = 0;
 		gameboard.style.filter = "blur(0px)";
 		setTimeout(() => {
+			const nextLevel = parseInt(nextLevelButton.getAttribute("data-next"));
+			loadLevel(levels[nextLevel], nextLevel);
 			levelScreen.style.display = "none";
 			timer();
 		}, 100);
@@ -368,9 +370,9 @@ function runGame() {
 function loadLevel(level, levelNumber) {
 	console.log(`Loading level ${levelNumber}`);
 
-	if (levelNumber != 1) {
-		levelMenu(levelNumber);
-	}
+	// if (levelNumber != 1) {
+	// 	levelMenu(levelNumber);
+	// }
 
 	const main = document.querySelector("main");
 	main.setAttribute("data-palette", level["palette"])
@@ -397,7 +399,7 @@ function loadLevel(level, levelNumber) {
 	  obstacle.style.top = randomY + "px";
   
 	  obstacle.direction = Math.random() * 360;
-	  obstacle.cumulativeRotation = 0;
+	  obstacle.cumulativeRotation = 0;	
 	  gameboard.appendChild(obstacle);
 	  obstacles.push(obstacle);
 	}
@@ -430,14 +432,15 @@ function loadLevel(level, levelNumber) {
 		const nextLevelNumber = levelNumber + 1;
 
 		if (levels[nextLevelNumber]) {
-			loadLevel(levels[nextLevelNumber], nextLevelNumber);
+			// loadLevel(levels[nextLevelNumber], nextLevelNumber);
+			levelMenu(nextLevelNumber);
+			document.getElementById("nextLevel").setAttribute("data-next", nextLevelNumber);
 		} else {
 			console.log("Done!");
 			timer();
 			openEndScreen();
 		}
 	});
-  
 	gameboard.appendChild(target);
   
 	// Move Obstacles and Target
