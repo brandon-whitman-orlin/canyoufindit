@@ -77,28 +77,48 @@ function changeTheme() {
 }
 
 function presetSound(sound) {
-	if (sound === "off") {
+	const slider = document.getElementById("volume");
+	if (sound === 0) {
 		document.documentElement.setAttribute('data-sound', "off");
 		sealSFX.volume = 0;
 		bgMusic.volume = 0;
+		slider.value = 0;
 	} else {
 		document.documentElement.setAttribute('data-sound', "on");
-		sealSFX.volume = 1;
-		bgMusic.volume = 1;
+		sealSFX.volume = sound;
+		bgMusic.volume = sound;
+		slider.value = sound;
 	}
 }
 
 function changeSound() {
+	const slider = document.getElementById("volume");
 	if (document.documentElement.getAttribute('data-sound') == "off") {
 		document.documentElement.setAttribute('data-sound', "on");
-		localStorage.setItem("soundMode", "on");
+		localStorage.setItem("soundMode", 1);
 		sealSFX.volume = 1;
 		bgMusic.volume = 1;
+		slider.value = 1;
 	} else {
 		document.documentElement.setAttribute('data-sound', "off");
-		localStorage.setItem("soundMode", "off");
+		localStorage.setItem("soundMode", 0);
 		sealSFX.volume = 0;
 		bgMusic.volume = 0;
+		slider.value = 0;		
+	}
+}
+
+function adjustVolume(val) {
+	if (val == 0) {
+		document.documentElement.setAttribute('data-sound', "off");
+		localStorage.setItem("soundMode", 0);
+		sealSFX.volume = 0;
+		bgMusic.volume = 0;
+	} else {
+		document.documentElement.setAttribute('data-sound', "on");
+		localStorage.setItem("soundMode", val);
+		sealSFX.volume = val;
+		bgMusic.volume = val;
 	}
 }
 
@@ -386,7 +406,7 @@ function loadLevel(level, levelNumber) {
 	const target = document.createElement("div");
 	target.classList.add("target");
   
-	const targetSize = 32;
+	const targetSize = 48;
 	const maxX = gameboard.clientWidth - targetSize;
 	const maxY = gameboard.clientHeight - targetSize;
   
