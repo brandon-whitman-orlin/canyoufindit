@@ -436,6 +436,7 @@ a {
 	transition: filter 1s ease-in-out;
 	border: 5px solid var(--obstacleColor);
 	filter: blur(0px);
+	background-size: var(--bgSize);
 }
 
 
@@ -466,7 +467,15 @@ main[data-palette="4"] {
 main[data-palette="5"] {
 	--borderColor: var(--primary);
 	--bgColor: linear-gradient(90deg, rgba(8,126,139,1) 0%, rgba(255,90,95,1) 25%, rgba(60,60,60,1) 50%, rgba(245,245,245,1) 75%, rgba(193,131,159,1) 100%);
-	--obstacleColor: rgb(234, 255, 0);
+	--obstacleColor: #eaff00;
+}
+
+main[data-palette="6"] {
+	--borderColor: var(--primary);
+	--bgColor: url('assets/checker.jpg');
+	--bgSize: 100% 100%;
+	--obstacleColor: #000000;
+	--obstacleOpacity: 1;
 }
 
 .gameboard .target {
@@ -502,7 +511,7 @@ main[data-palette="5"] {
 	position: absolute;
 	background: var(--obstacleColor);
 	z-index: 2;
-	opacity: 0.5;
+	opacity: var(--obstacleOpacity, 0.5);
 	pointer-events: none;
 	transition: all 0.3s ease-in-out;
 }

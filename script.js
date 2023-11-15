@@ -141,15 +141,52 @@ function openInstructions() {
 }
 
 function openEndScreen() {
-	const endScreen = document.getElementById("endScreen");
-	endScreen.style.display = "flex";
-	endScreen.querySelector("p").innerText = `You found Kiko the seal ${Object.keys(levels).length} times in ${returnTime()}! Great Job!`;
-	gameboard.style.filter = "blur(2px)";
-	setTimeout(() => {
-		endScreen.style.opacity = "1";
-		timer();
-	}, 100);
+    const endScreen = document.getElementById("endScreen");
+    endScreen.style.display = "flex";
+    
+    // Get the current record from local storage
+    var record = localStorage.getItem("record");
+    
+    // Get the current time
+    var currentTime = returnTime(false);
+	var totalSeconds = returnTime(true);
+    
+    // Compare the current time with the record
+    if (!record || totalSeconds < record) {
+        record = totalSeconds;
+        localStorage.setItem("record", record);
+    }
+
+	function secondsConverter(totalSeconds) {
+		const hours = Math.floor(totalSeconds / 3600);
+		const minutes = Math.floor((totalSeconds % 3600) / 60);
+		const seconds = totalSeconds % 60;
+	
+		const hoursText = hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : '';
+		const minutesText = minutes > 0 ? `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}` : '';
+		const secondsText = seconds > 0 ? `${seconds} ${seconds === 1 ? 'second' : 'seconds'}` : '';
+	
+		const timeArray = [hoursText, minutesText, secondsText].filter(Boolean);
+	
+		if (timeArray.length === 0) {
+			return '0 seconds';
+		} else {
+			return timeArray.join(' and ');
+		}
+	}
+
+    // Update the display with the current time and record
+    endScreen.querySelector("#message").innerText = `You found Kiko the seal ${Object.keys(levels).length} times in ${currentTime}! Great Job!`;
+    endScreen.querySelector("#record").innerText = `Your current record is ${secondsConverter(record)}!`;
+
+    gameboard.style.filter = "blur(2px)";
+    
+    setTimeout(() => {
+        endScreen.style.opacity = "1";
+        timer();
+    }, 100);
 }
+
 
 var bgMusic = new Audio('assets/Club Seamus.mp3');
 var sealSFX = new Audio('assets/sealSound.mp3');
@@ -311,24 +348,59 @@ const levels = {
 	},
 	23: {
 		palette: 5,
-		obstacleCount: 20,
+		obstacleCount: 30,
 		minObstacleSize: 2,
 		maxObstacleSize: 5,
 		obstacleSpeed: 3,
 	},
 	24: {
 		palette: 5,
-		obstacleCount: 25,
+		obstacleCount: 45,
 		minObstacleSize: 2,
 		maxObstacleSize: 5,
 		obstacleSpeed: 3,
 	},
 	25: {
 		palette: 5,
-		obstacleCount: 30,
+		obstacleCount: 60,
 		minObstacleSize: 2,
 		maxObstacleSize: 6,
 		obstacleSpeed: 3,
+	},
+	26: {
+		palette: 6,
+		obstacleCount: 50,
+		minObstacleSize: 3,
+		maxObstacleSize: 3,
+		obstacleSpeed: 10,
+	},
+	27: {
+		palette: 6,
+		obstacleCount: 50,
+		minObstacleSize: 4,
+		maxObstacleSize: 4,
+		obstacleSpeed: 10,
+	},
+	28: {
+		palette: 6,
+		obstacleCount: 50,
+		minObstacleSize: 5,
+		maxObstacleSize: 5,
+		obstacleSpeed: 10,
+	},
+	29: {
+		palette: 6,
+		obstacleCount: 50,
+		minObstacleSize: 6,
+		maxObstacleSize: 6,
+		obstacleSpeed: 10,
+	},
+	30: {
+		palette: 6,
+		obstacleCount: 50,
+		minObstacleSize: 7,
+		maxObstacleSize: 7,
+		obstacleSpeed: 10,
 	},
   };
 
@@ -369,10 +441,6 @@ function runGame() {
 
 function loadLevel(level, levelNumber) {
 	console.log(`Loading level ${levelNumber}`);
-
-	// if (levelNumber != 1) {
-	// 	levelMenu(levelNumber);
-	// }
 
 	const main = document.querySelector("main");
 	main.setAttribute("data-palette", level["palette"])
@@ -545,12 +613,16 @@ function padZero(value) {
     return value < 10 ? `0${value}` : value;
 }
 
-function returnTime() {
+function returnTime(sum) {
     const hoursText = hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : '';
     const minutesText = minutes > 0 ? `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}` : '';
     const secondsText = seconds > 0 ? `${seconds} ${seconds === 1 ? 'second' : 'seconds'}` : '';
 
     const timeArray = [hoursText, minutesText, secondsText].filter(Boolean);
+
+	if (sum) {
+		return (seconds + (60 * minutes) + (360 * hours))
+	}
 
     if (timeArray.length === 0) {
         return '0 seconds';
